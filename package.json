@@ -1,0 +1,20 @@
+{
+  "name": "natural_disasters",
+  "version": "0.0.1",
+  "description": "map of history's natural disasters",
+  "main": "index.js",
+  "author": "Jackie Ellenberger",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "geojson": "^0.4.1",
+    "mongodb": "^2.2.30",
+    "morgan": "^1.8.2",
+    "node-fetch": "^1.7.1",
+    "nodemon": "^1.11.0"
+  }
+}
