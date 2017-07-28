@@ -34,7 +34,7 @@ module.exports = {
               /* HEADER */
               if(regexHeader.test(line)){
                 dateFull = line.match(regexDateFull)[0]
-                year = dateFull.slice(-4)
+                year = parseInt(dateFull.slice(-4))
                 name = line.match(regexName)[0].trim()
 
 
@@ -52,8 +52,8 @@ module.exports = {
 
                 dateMin = dateMin[0]
 
-                month = dateMin.slice(0,2)
-                day = dateMin.slice(3)
+                month = parseInt(dateMin.slice(0,2))
+                day = parseInt(dateMin.slice(3))
 
                 loc = line.match(regexLoc)
 
@@ -64,8 +64,8 @@ module.exports = {
 
                 loc = loc[0]
 
-                lat = `${loc[0]}${loc[1]}.${loc[2]}`
-                lng = `${loc[4]}${loc[5]}.${loc[6]}`
+                lat = parseFloat(`${loc[0]}${loc[1]}.${loc[2]}`)
+                lng = parseFloat(`${loc[4]}${loc[5]}.${loc[6]}`)
 
                 newObj = {
                   category: "Hurricane",

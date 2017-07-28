@@ -6,8 +6,12 @@ const url = 'mongodb://localhost:27017/disaster';
 
 const hurricaneUrl = ['http://weather.unisys.com/hurricane/atlantic/tracks.atl']
 
-/* HURRICANES SEED */
+/*
+TODO: Scrape data from other historical data pages, ie add more to hurricaneUrl
+TODO: Set up additional async seeds in a lin
+*/
 
+/* HURRICANES SEED */
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
@@ -17,7 +21,7 @@ MongoClient.connect(url, function(err, db) {
       db.collection('hurricanes').insertMany(
         data.features,
         function(err, result) {
-         assert.equal(err, null, console.error(err))
+         assert.equal(err, null)
          console.log(`Inserted ${result.insertedCount} rows into hurricanes collection.`);
          callback()
       })
