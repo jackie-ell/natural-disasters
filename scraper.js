@@ -17,7 +17,7 @@ module.exports = {
         const regexDateFull = new RegExp(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/)
         const regexDateMin = new RegExp(/[0-9]{2}\/[0-9]{2}/)
         const regexName = new RegExp(/[A-Z\s]+(?=XING)/)
-        const regexLoc = new RegExp(/[0-9]{3}\s[0-9]{3}/)
+        const regexLoc = new RegExp(/[0-9]{3}\s?[0-9]{3,4}/)
 
         let objData = []
         let newObj = {};
@@ -65,7 +65,12 @@ module.exports = {
                 loc = loc[0]
 
                 lat = parseFloat(`${loc[0]}${loc[1]}.${loc[2]}`)
-                lng = parseFloat(`${loc[4]}${loc[5]}.${loc[6]}`)
+                /* Fix for 4-digit longitude */
+                if(loc.indexOf(" ") === -1){
+                  lng = parseFloat(`${loc.slice(3,-1)}.${loc[6]}`)
+                }else{
+                  lng = parseFloat(`${loc[4]}${loc[5]}.${loc[6]}`)
+                }
 
                 newObj = {
                   category: "Hurricane",

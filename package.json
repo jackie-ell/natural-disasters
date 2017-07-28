@@ -8,7 +8,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "db:seed": "node db/seed.js",
-    "db:drop": "node db/drop.js"
+    "db:drop": "node db/drop.js",
+
+    "db:reset": "yarn db:drop && yarn db:seed"
   },
   "dependencies": {
     "body-parser": "^1.17.2",

@@ -4,7 +4,13 @@ const scraper = require('../scraper.js')
 
 const url = 'mongodb://localhost:27017/disaster';
 
-const hurricaneUrl = ['http://weather.unisys.com/hurricane/atlantic/tracks.atl']
+const hurricaneUrl = [
+  'http://weather.unisys.com/hurricane/atlantic/tracks.atl',
+  'http://weather.unisys.com/hurricane/e_pacific/tracks.epa',
+  'http://weather.unisys.com/hurricane/w_pacific/tracks.wpa',
+  'http://weather.unisys.com/hurricane/s_indian/tracks.she',
+  'http://weather.unisys.com/hurricane/n_indian/tracks.nio'
+]
 
 /*
 TODO: Scrape data from other historical data pages, ie add more to hurricaneUrl
