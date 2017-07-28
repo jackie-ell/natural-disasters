@@ -6,7 +6,8 @@
   "author": "Jackie Ellenberger",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "db:seed": "node db/seed.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",

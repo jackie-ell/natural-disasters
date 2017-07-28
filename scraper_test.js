@@ -2,8 +2,12 @@ const scraper = require('./scraper.js')
 const GeoJSON = require('geojson')
 
 scraper.scrapeHurricane('http://weather.unisys.com/hurricane/atlantic/tracks.atl')
-
-
+.then(data => {
+  console.log(data.features[998])
+  console.log(data.features[999])
+  console.log(data.features[1000])
+})
+.catch(err => console.error(err))
 
 // let body = `50070 08/05/1978 M= 4  3 SNBR=1066 BESS        XING=0 SSS=0
 // 50075 08/05*  0   0   0    0*  0   0   0    0*253 904  20 1012*251 910  20 1012*
