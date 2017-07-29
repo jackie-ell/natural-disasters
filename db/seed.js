@@ -13,15 +13,37 @@ const hurricaneUrl = [
 ]
 
 /*
-TODO: Scrape data from other historical data pages, ie add more to hurricaneUrl
-TODO: Set up additional async seeds in a lin
+TODO:
 */
+
+async function scrapeData(){
+  const results = [
+    await scraper.scrapeHurricane(hurricaneUrl[0]),
+    await scraper.scrapeHurricane(hurricaneUrl[1]),
+    await scraper.scrapeHurricane(hurricaneUrl[2]),
+    await scraper.scrapeHurricane(hurricaneUrl[3]),
+    await scraper.scrapeHurricane(hurricaneUrl[4])
+  ]
+
+  const resultObj = {
+    type: 'FeatureCollection',
+    features: new Array().concat(
+      results[0].features,
+      results[1].features,
+      results[2].features,
+      results[3].features,
+      results[4].features
+    )
+  }
+
+  return resultObj
+}
 
 /* HURRICANES SEED */
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
-  scraper.scrapeHurricane(hurricaneUrl[0])
+  scrapeData()
   .then(data => {
     return function(db, callback) {
       db.collection('hurricanes').insertMany(
@@ -40,3 +62,11 @@ MongoClient.connect(url, function(err, db) {
    })
   })
 });
+
+
+
+
+
+
+
+/* */
