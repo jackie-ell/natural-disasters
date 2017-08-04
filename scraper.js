@@ -90,5 +90,19 @@ module.exports = {
             res(returnJSON)
           })
       })
+  },
+
+  scrapeEarthquake: function(url) {
+
   }
 }
+
+
+
+
+
+
+
+
+
+/**/

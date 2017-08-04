@@ -9,11 +9,11 @@
     "start": "nodemon index.js",
     "db:seed": "node db/seed.js",
     "db:drop": "node db/drop.js",
-
     "db:reset": "yarn db:drop && yarn db:seed"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
     "express": "^4.15.3",
     "geojson": "^0.4.1",
     "mongodb": "^2.2.30",
