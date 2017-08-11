@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
-
+// ROUTE DIRECTORIES
 const home = require('./routes/home');
 const hurricanes = require('./routes/api/hurricanes')
 
@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+// USE ROUTE DIRECTORIES
 app.use('/', home);
 app.use('/api/hurricanes', hurricanes)
 
