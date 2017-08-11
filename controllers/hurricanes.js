@@ -21,7 +21,6 @@ module.exports = {
       limit
     } = req.query
 
-
     /* $match */
     let matchQuery = []
 
@@ -35,30 +34,24 @@ module.exports = {
       matchQuery = matchQuery[0]
     }
 
-    if(matchQuery !== undefined){
-      matchQuery = {$match: matchQuery}
-    }
-    else {
-      matchQuery = null
-    }
-
-
-    res.send(matchQuery)
+    if(matchQuery !== undefined){matchQuery = {$match: matchQuery}}
 
     /**/
 
-    // MongoClient.connect(url, (err, db) => {
-    //   assert.equal(err, null)
-    //
-    //   db.collection('hurricanes').aggregate([
-    //     { $match: {"properties.year": year} }
-    //   ],
-    //   (err, result) => {
-    //     assert.equal(err, null)
-    //
-    //     db.close()
-    //     res.send({year, month, day, limit})
-    //   })
-    // })
+    aggregateArr = []
+    if(matchQuery !== undefined){ aggregateArr.push(matchQuery)}
+
+    MongoClient.connect(url, (err, db) => {
+      assert.equal(err, null)
+
+      db.collection('hurricanes').aggregate(
+        aggregateArr,
+      (err, result) => {
+        assert.equal(err, null)
+
+        db.close()
+        res.json(result)
+      })
+    })
   }
 }
