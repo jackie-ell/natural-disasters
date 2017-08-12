@@ -36,10 +36,19 @@ module.exports = {
 
     if(matchQuery !== undefined){matchQuery = {$match: matchQuery}}
 
+    /* $limit */
+
+    let limitQuery = {}
+
+    if(limit) { limitQuery["$limit"] = parseInt(limit) }
+
     /**/
 
+    // Creates an array to aggregate on.
+    // Requires that the queries aren't empty, are defined, etc...
     aggregateArr = []
     if(matchQuery !== undefined){ aggregateArr.push(matchQuery)}
+    if(Object.keys(limitQuery).length > 0){ aggregateArr.push(limitQuery)}
 
     MongoClient.connect(url, (err, db) => {
       assert.equal(err, null)
