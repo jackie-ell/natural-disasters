@@ -1,6 +1,6 @@
 {
   "name": "natural_disasters",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "map of history's natural disasters",
   "main": "index.js",
   "author": "Jackie Ellenberger",

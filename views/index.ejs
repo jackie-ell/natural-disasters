@@ -1,7 +1,83 @@
 <%- include('./partials/header') %>
-  <h1>Natural Disasters</h1>
-
-  <div id="map">
-
+<div class="container">
+  <div class="page-header">
+    <h1>Natural Disaster API <small>Thousands of disasters at your finger tips</small></h1>
   </div>
+</div>
+
+<div class="container well">
+  <h3>About</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <h3>How To Use</h3>
+  <pre><%= locals.url %>/api/hurricanes?var1=x&amp;var2=y</pre>
+
+  <div class="row">
+    <div class="col-xs-4">
+      <h5>Specific Dates</h5>
+      <ul class="list-group">
+        <li class="list-group-item">year</li>
+        <li class="list-group-item">month</li>
+        <li class="list-group-item">day</li>
+      </ul>
+    </div>
+    <div class="col-xs-8">
+      <h5>Information</h5>
+      <p>Information.</p>
+      <p class="text-danger"><strong>Note: </strong>Specific Dates cannot be used in conjunction with Between Dates.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4">
+      <h5>Between Dates</h5>
+      <ul class="list-group">
+        <li class="list-group-item">yearStart</li>
+        <li class="list-group-item">yearEnd</li>
+        <li class="list-group-item">monthStart</li>
+        <li class="list-group-item">monthEnd</li>
+        <li class="list-group-item">dayStart</li>
+        <li class="list-group-item">dayEnd</li>
+      </ul>
+    </div>
+    <div class="col-xs-8">
+      <h5>Information</h5>
+      <p>Information.</p>
+      <p class="text-danger"><strong>Note: </strong>Specific Dates cannot be used in conjunction with Between Dates.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4">
+      <h5>Universal Variables</h5>
+      <ul class="list-group">
+        <li class="list-group-item">limit</li>
+      </ul>
+    </div>
+    <div class="col-xs-8">
+      <h5>Information</h5>
+      <p>Information.</p>
+    </div>
+  </div>
+  <h3>Example</h3>
+  <pre><%= locals.url %>/api/hurricanes?year=2011&amp;month=6&amp;day=22</pre>
+  <pre>[
+  {
+    "_id": "597c16a4e7ac8c1fd42980da",
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        105.9,
+        19
+      ]
+    },
+    "properties": {
+      "category": "Hurricane",
+      "name": "BEATRIZ",
+      "year": 2011,
+      "month": 6,
+      "day": 22
+    }
+  }
+]</pre>
+</div>
+
 <%- include('./partials/footer') %>

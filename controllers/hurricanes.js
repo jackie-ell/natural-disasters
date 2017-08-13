@@ -89,7 +89,7 @@ module.exports = {
         assert.equal(err, null)
 
         db.close()
-        res.send(result)
+        res.json(result)
       })
     })
   }
