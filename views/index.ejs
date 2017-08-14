@@ -21,7 +21,7 @@
 
 
   <h3 id="how-to">How To Use</h3>
-  <pre><%= locals.url %>/api/hurricanes?var1=x&amp;var2=y</pre>
+  <pre>http://<%= locals.url %>/api/hurricanes?var1=x&amp;var2=y</pre>
   <h4 id="specific-date">Specific Date Variables</h4>
   <table class="table table-striped">
     <th class="col-xs-2">Variable</th><th class="col-xs-8">Description</th><th class="col-xs-2">Mongo equiv.</th>
@@ -74,27 +74,39 @@
   </table>
 
   <h3 id="example">Example</h3>
-  <pre><%= locals.url %>/api/hurricanes?year=2011&amp;month=6&amp;day=22</pre>
-  <pre>[
-  {
-    "_id": "597c16a4e7ac8c1fd42980da",
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [
-        105.9,
-        19
-      ]
-    },
-    "properties": {
-      "category": "Hurricane",
-      "name": "BEATRIZ",
-      "year": 2011,
-      "month": 6,
-      "day": 22
+  <form >
+    <div class="form-group">
+      <label for="api-test">Input</label>
+      <input id="api-test" class="form-control" type="text" value="http://<%= locals.url %>/api/hurricanes?year=2011&amp;month=6&amp;day=22">
+    </div>
+    <div class="form-group">
+      <button id="api-test-btn" type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </form>
+
+  <div class="">
+    <pre id="api-test-output" style="height:300px;overflow-y:scroll;">[
+    {
+      "_id": "597c16a4e7ac8c1fd42980da",
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.9,
+          19
+        ]
+      },
+      "properties": {
+        "category": "Hurricane",
+        "name": "BEATRIZ",
+        "year": 2011,
+        "month": 6,
+        "day": 22
+      }
     }
-  }
-]</pre>
+  ]</pre>
+  </div>
+
 
 <h3 id="sources">Sources</h3>
 <h4>Hurricanes</h4>
