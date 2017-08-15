@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
     "ejs": "^2.5.7",
     "express": "^4.15.3",
     "geojson": "^0.4.1",
