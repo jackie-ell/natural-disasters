@@ -17,8 +17,12 @@
   </ul>
 
   <h3 id="about">About</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+  <p>
+    This API is designed to gather thousands of natural disasters in one place.
+  </p>
+  <p>
+    Each set of data is formatted in GeoJSON and contains latitude/longitude data, intended for use in the Google Maps API.
+  </p>
 
   <h3 id="how-to">How To Use</h3>
   <pre>http://<%= locals.url %>/api/hurricanes?var1=x&amp;var2=y</pre>
@@ -109,8 +113,14 @@
 
 
 <h3 id="sources">Sources</h3>
-<h4>Hurricanes</h4>
-<a href="http://weather.unisys.com/hurricane/index.php">Unisys Weather</a>
+<table class="table">
+  <th>Hurricanes</th><th>Earthquakes</th><th>Tsunamis</th>
+  <tr>
+    <td><a href="http://weather.unisys.com/hurricane/index.php">Unisys Weather</a></td>
+    <td><a href="http://www.isc.ac.uk/iscgem/">ISC</a></td>
+    <td>More sources!</td>
+  </tr>
+</table>
 </div>
 
 <%- include('./partials/footer') %>
