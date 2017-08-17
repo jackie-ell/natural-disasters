@@ -2,7 +2,7 @@ const q = (target) => { return document.querySelector(target) }
 
 const getData = (query) => {
   return fetch(query)
-          .then(res => res.json())
+    .then(res => res.json())
 
 }
 

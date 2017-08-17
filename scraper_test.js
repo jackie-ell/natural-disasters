@@ -12,8 +12,8 @@ const regexDateFull = /[0-9]{4}-[0-9]{2}-[0-9]{2}/
 
 fs.readFile('./data/isc-gem-cat.csv', 'utf8', function(err,data) {
   if (err) {
-    return console.error(err);
+    return console.error(err)
   }
 
-  console.log(data);
+  console.log(data)
 })
