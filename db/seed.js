@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-const scraper = require('../scraper.js')
+const scraper = require('./scraper.js')
 
 const url = 'mongodb://localhost:27017/disaster';
 
