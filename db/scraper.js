@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
 const GeoJSON = require('geojson')
+const fs = require('fs')
+const assert = require('assert')
 
 
 /*
@@ -11,6 +13,10 @@ Limitations: Only gets first lat/lng combination for a storm on a certain day.
 module.exports = {
   scrapeHurricane: function(url){
     return new Promise((res, rej) => {
+      if(url === undefined){
+        rej(null)
+      }
+
       const regexHeader = new RegExp(/[0-9]+\s[0-9]{2}\/[0-9]{2}\/[0-9]{4}\s*M=\s*[0-9]+\s*[0-9]+\s*SNBR=\s*[0-9]+\s[\w\s]+XING=[0-1]\s*SSS=[0-9]/)
       const regexFooter = new RegExp(/[0-9]{5}\s*(HR|TS|SS)[A-Z0-9]*\s*/)
 
@@ -26,7 +32,6 @@ module.exports = {
       fetch(url)
         .then(res => res.text())
         .then(body => {
-          // console.log(body);
 
           const lines = body.split('\n')
 
@@ -86,14 +91,89 @@ module.exports = {
             }
           }
           const returnJSON = GeoJSON.parse(objData, {Point: ['lat', 'lng']})
+          // eslint-disable-next-line
           console.log(`Scraped: ${Object.keys(returnJSON.features).length} objects.`)
           res(returnJSON)
         })
     })
   },
 
-  scrapeEarthquake: function(url) {
+  /*
+  Takes historical earthquake data from http://www.isc.ac.uk/iscgem/
+  and returns a GeoJSON version of the data.
+  #date,lat,lon,smajax,sminax,strike,q ,depth,unc,q,mw,unc,q,s,mo,fac,mo_auth,mpp,mpr,mrr,mrt,mtp,mtt,eventid
 
+  */
+  scrapeEarthquake: function() {
+    return new Promise((res,rej) => {
+      const csv = fs.readFileSync('data/isc-gem-cat.csv', 'utf-8', (err,data)=>{
+        assert(err, null)
+
+        return data
+      })
+
+      if(csv === undefined){
+        rej(null)
+      }
+
+      const csvSplit = csv.split('\n')
+
+      let objData = []
+      let newObj = {}
+
+      for(let line of csvSplit) {
+        // Ignore headers
+        if(line.includes('#') || line === undefined){
+          continue
+        }
+
+        // Split the line up and remove whitespace
+        let splitLine = line.split(',')
+        splitLine = splitLine.map((n) => n.trim())
+
+        newObj = {
+          category: 'Earthquake',
+          date: splitLine[0],
+          lat: splitLine[1],
+          lng: splitLine[2],
+          error: {
+            smajax: splitLine[3],
+            sminax: splitLine[4],
+            strike: splitLine[5],
+            q: splitLine[6]
+          },
+          depth: {
+            depth: splitLine[7],
+            unc: splitLine[8],
+            q: splitLine[9]
+          },
+          mw: {
+            mw: splitLine[10],
+            q: splitLine[11],
+            unc: splitLine[12],
+            s: splitLine[13]
+          },
+          mo: splitLine[14],
+          fac: splitLine[15],
+          mo_auth: splitLine[16],
+          tensor: {
+            mpp: splitLine[17],
+            mpr: splitLine[18],
+            mrr: splitLine[19],
+            mrt: splitLine[20],
+            mtp: splitLine[21],
+            mtt: splitLine[22]
+          }
+        }
+
+        objData.push(newObj)
+      }
+
+      const returnJSON = GeoJSON.parse(objData, {Point: ['lat', 'lng']})
+      // eslint-disable-next-line
+      console.log(`Scraped: ${Object.keys(returnJSON.features).length} objects.`)
+      res(returnJSON)
+    })
   }
 }
 

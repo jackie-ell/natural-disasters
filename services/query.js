@@ -39,9 +39,7 @@ class QueryService {
   }
 
   getQuery(year,month,day,yearStart,yearEnd,monthStart,monthEnd,dayStart,dayEnd){
-    if(this.query === false){
-      this.query = {}
-    }
+    this.query = {}
 
     if((year||month||day) && (yearStart||yearEnd||monthStart||monthEnd||dayStart||dayEnd)){
       this.query = false

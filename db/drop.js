@@ -11,7 +11,15 @@ MongoClient.connect(url, (err, db) => {
   db.collection('hurricanes').drop((err, reply) => {
     assert.equal(err, null)
 
+    // eslint-disable-next-line
     console.log(reply)
-    db.close()
+
+    db.collection('earthquakes').drop((err, reply) => {
+      assert.equal(err, null)
+
+      // eslint-disable-next-line
+      console.log(reply)
+      db.close()
+    })
   })
 })

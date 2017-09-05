@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const scraper = require('./scraper.js')
+const fs = require('fs')
 
 const url = 'mongodb://localhost:27017/disaster';
 
@@ -12,11 +13,15 @@ const hurricaneUrl = [
   'http://weather.unisys.com/hurricane/n_indian/tracks.nio'
 ]
 
+const earthquakeCSV = [
+  'data/isc-gem-cat.csv'
+]
+
 /*
 TODO:
 */
 
-async function scrapeData(){
+async function scrapeHurricaneData(){
   const results = [
     await scraper.scrapeHurricane(hurricaneUrl[0]),
     await scraper.scrapeHurricane(hurricaneUrl[1]),
@@ -39,28 +44,61 @@ async function scrapeData(){
   return resultObj
 }
 
+// async function scrapeEarthquakeData(){
+//   function getCSV(path){
+//     fs.readFileSync(path, 'utf-8', (err, data) => {
+//       assert(err, null)
+//
+//       return data
+//     })
+//   }
+//
+//   const get = [
+//     fs.readFile(earthquakeCSV[0], 'utf-8', (err,data) => {
+//       assert(err, null)
+//       return data
+//     })
+//   ]
+//
+//   const results = [
+//     await scraper.scrapeEarthquake(get[0])
+//   ]
+//
+//   const resultObj = {
+//     type: 'FeatureCollection',
+//     features: new Array().concat(
+//       results[0].features
+//     )
+//   }
+//
+//   return resultObj
+// }
+
 /* HURRICANES SEED */
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
-  scrapeData()
-  .then(data => {
-    return function(db, callback) {
-      db.collection('hurricanes').insertMany(
-        data.features,
-        function(err, result) {
-         assert.equal(err, null)
-         console.log(`Inserted ${result.insertedCount} rows into hurricanes collection.`);
-         callback()
-      })
-    }
-  })
-  .catch(err => console.error(err))
-  .then(fn => {
-   fn(db, function() {
-     db.close()
-   })
-  })
+  (async function() {
+    const hurricanes = await scrapeHurricaneData()
+    const earthquakes = await scraper.scrapeEarthquake()
+
+    db.collection('earthquakes').insertMany(
+      earthquakes.features,
+      function(err, result) {
+       assert.equal(err, null)
+       console.log(`Inserted ${result.insertedCount} rows into earthquakes collection.`);
+
+       db.collection('hurricanes').insertMany(
+         hurricanes.features,
+         function(err, result) {
+          assert.equal(err, null)
+          console.log(`Inserted ${result.insertedCount} rows into hurricanes collection.`);
+
+          db.close()
+       })
+    })
+  })()
+
 });
 
 
