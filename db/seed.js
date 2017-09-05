@@ -79,24 +79,7 @@ MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
   (async function() {
-    /*await scrapeHurricaneData()
-    .then(data => {
-      // return function(db, callback) {
-        db.collection('hurricanes').insertMany(
-          data.features,
-          function(err, result) {
-           assert.equal(err, null)
-           console.log(`Inserted ${result.insertedCount} rows into hurricanes collection.`);
-          //  callback()
-        })
-      // }
-    })*/
-    // .catch(err => console.error(err))
-    // .then(fn => {
-    //  fn(db, function() {
-    //    db.close()
-    //  })
-    // })
+    const hurricanes = await scrapeHurricaneData()
     const earthquakes = await scraper.scrapeEarthquake()
 
     db.collection('earthquakes').insertMany(
@@ -104,12 +87,16 @@ MongoClient.connect(url, function(err, db) {
       function(err, result) {
        assert.equal(err, null)
        console.log(`Inserted ${result.insertedCount} rows into earthquakes collection.`);
-      //  callback()
 
-      db.close()
+       db.collection('hurricanes').insertMany(
+         hurricanes.features,
+         function(err, result) {
+          assert.equal(err, null)
+          console.log(`Inserted ${result.insertedCount} rows into hurricanes collection.`);
+
+          db.close()
+       })
     })
-
-
   })()
 
 });
