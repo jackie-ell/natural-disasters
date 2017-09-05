@@ -44,34 +44,41 @@ async function scrapeHurricaneData(){
   return resultObj
 }
 
-async function scrapeEarthquakeData(){
-  function getCSV(path){
-    fs.readFileSync(path, (err, data) => {
-      assert(err, null)
-
-      return data
-    })
-  }
-
-  const results = [
-    await scraper.scrapeEarthquake(getCSV(earthquakeCSV[0]))
-  ]
-
-  const resultObj = {
-    type: 'FeatureCollection',
-    features: new Array().concat(
-      results[0].features
-    )
-  }
-
-  return resultObj
-}
+// async function scrapeEarthquakeData(){
+//   function getCSV(path){
+//     fs.readFileSync(path, 'utf-8', (err, data) => {
+//       assert(err, null)
+//
+//       return data
+//     })
+//   }
+//
+//   const get = [
+//     fs.readFile(earthquakeCSV[0], 'utf-8', (err,data) => {
+//       assert(err, null)
+//       return data
+//     })
+//   ]
+//
+//   const results = [
+//     await scraper.scrapeEarthquake(get[0])
+//   ]
+//
+//   const resultObj = {
+//     type: 'FeatureCollection',
+//     features: new Array().concat(
+//       results[0].features
+//     )
+//   }
+//
+//   return resultObj
+// }
 
 /* HURRICANES SEED */
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
-  (async function(){
+  (async function() {
     /*await scrapeHurricaneData()
     .then(data => {
       // return function(db, callback) {
@@ -90,20 +97,19 @@ MongoClient.connect(url, function(err, db) {
     //    db.close()
     //  })
     // })
-    await scrapeEarthquakeData()
-    .then(data => {
-      // return function(db, callback) {
-        db.collection('earthquakes').insertMany(
-          data.features,
-          function(err, result) {
-           assert.equal(err, null)
-           console.log(`Inserted ${result.insertedCount} rows into earthquakes collection.`);
-          //  callback()
-        })
-      // }
+    const earthquakes = await scraper.scrapeEarthquake()
+
+    db.collection('earthquakes').insertMany(
+      earthquakes.features,
+      function(err, result) {
+       assert.equal(err, null)
+       console.log(`Inserted ${result.insertedCount} rows into earthquakes collection.`);
+      //  callback()
+
+      db.close()
     })
 
-    db.close()
+
   })()
 
 });

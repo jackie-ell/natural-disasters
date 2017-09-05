@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
 const GeoJSON = require('geojson')
+const fs = require('fs')
+const assert = require('assert')
 
 
 /*
@@ -88,8 +90,8 @@ module.exports = {
               objData.push(newObj)
             }
           }
-          GeoJSON.parse(objData, {Point: ['lat', 'lng']})
-
+          const returnJSON = GeoJSON.parse(objData, {Point: ['lat', 'lng']})
+          // eslint-disable-next-line
           console.log(`Scraped: ${Object.keys(returnJSON.features).length} objects.`)
           res(returnJSON)
         })
@@ -102,19 +104,26 @@ module.exports = {
   #date,lat,lon,smajax,sminax,strike,q ,depth,unc,q,mw,unc,q,s,mo,fac,mo_auth,mpp,mpr,mrr,mrt,mtp,mtt,eventid
 
   */
-  scrapeEarthquake: function(csv) {
-    console.log(csv)
+  scrapeEarthquake: function() {
     return new Promise((res,rej) => {
+      const csv = fs.readFileSync('data/isc-gem-cat.csv', 'utf-8', (err,data)=>{
+        assert(err, null)
+
+        return data
+      })
+
       if(csv === undefined){
         rej(null)
       }
 
+      const csvSplit = csv.split('\n')
+
       let objData = []
       let newObj = {}
 
-      for(let line of csv) {
+      for(let line of csvSplit) {
         // Ignore headers
-        if(line.includes('#')){
+        if(line.includes('#') || line === undefined){
           continue
         }
 
