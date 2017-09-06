@@ -5,6 +5,7 @@ const logger = require('morgan')
 // ROUTE DIRECTORIES
 const home = require('./routes/home')
 const hurricanes = require('./routes/api/hurricanes')
+const earthquakes = require('./routes/api/earthquakes')
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(logger('dev'))
 // USE ROUTE DIRECTORIES
 app.use('/', home)
 app.use('/api/hurricanes', hurricanes)
+app.use('/api/earthquakes', earthquakes)
 
 
 const PORT = 3001
