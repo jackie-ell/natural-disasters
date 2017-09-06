@@ -44,50 +44,42 @@ async function scrapeHurricaneData(){
   return resultObj
 }
 
-// async function scrapeEarthquakeData(){
-//   function getCSV(path){
-//     fs.readFileSync(path, 'utf-8', (err, data) => {
-//       assert(err, null)
-//
-//       return data
-//     })
-//   }
-//
-//   const get = [
-//     fs.readFile(earthquakeCSV[0], 'utf-8', (err,data) => {
-//       assert(err, null)
-//       return data
-//     })
-//   ]
-//
-//   const results = [
-//     await scraper.scrapeEarthquake(get[0])
-//   ]
-//
-//   const resultObj = {
-//     type: 'FeatureCollection',
-//     features: new Array().concat(
-//       results[0].features
-//     )
-//   }
-//
-//   return resultObj
-// }
+async function scrapeEarthquakeData(){
+  const csv = fs.readFileSync('data/isc-gem-cat.csv', 'utf-8', (err,data)=>{
+    assert(err, null)
 
-/* HURRICANES SEED */
+    return data
+  })
+
+  const results = [
+    await scraper.scrapeEarthquake(csv)
+  ]
+
+  const resultObj = {
+    type: 'FeatureCollection',
+    features: new Array().concat(
+      results[0].features
+    )
+  }
+
+  return resultObj
+}
+
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
 
   (async function() {
     const hurricanes = await scrapeHurricaneData()
-    const earthquakes = await scraper.scrapeEarthquake()
+    const earthquakes = await scrapeEarthquakeData()
 
+    /* EARTHQUAKES SEED */
     db.collection('earthquakes').insertMany(
       earthquakes.features,
       function(err, result) {
        assert.equal(err, null)
        console.log(`Inserted ${result.insertedCount} rows into earthquakes collection.`);
 
+      /* HURRICANES SEED */
        db.collection('hurricanes').insertMany(
          hurricanes.features,
          function(err, result) {

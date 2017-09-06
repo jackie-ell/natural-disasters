@@ -104,13 +104,9 @@ module.exports = {
   #date,lat,lon,smajax,sminax,strike,q ,depth,unc,q,mw,unc,q,s,mo,fac,mo_auth,mpp,mpr,mrr,mrt,mtp,mtt,eventid
 
   */
-  scrapeEarthquake: function() {
+  scrapeEarthquake: function(csv) {
     return new Promise((res,rej) => {
-      const csv = fs.readFileSync('data/isc-gem-cat.csv', 'utf-8', (err,data)=>{
-        assert(err, null)
-
-        return data
-      })
+      
 
       if(csv === undefined){
         rej(null)
