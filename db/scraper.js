@@ -57,8 +57,8 @@ module.exports = {
 
               dateMin = dateMin[0]
 
-              month = parseInt(dateMin.slice(0,2))
-              day = parseInt(dateMin.slice(3))
+              month = dateMin.slice(0,2)
+              day = dateMin.slice(3)
 
               loc = line.match(regexLoc)
 
@@ -80,9 +80,7 @@ module.exports = {
               newObj = {
                 category: 'Hurricane',
                 name: name,
-                year: year,
-                month: month,
-                day: day,
+                date: `${year}-${month}-${day} 00:00:00.00`,
                 lat: lat,
                 lng: lng
               }
@@ -106,7 +104,7 @@ module.exports = {
   */
   scrapeEarthquake: function(csv) {
     return new Promise((res,rej) => {
-      
+
 
       if(csv === undefined){
         rej(null)
