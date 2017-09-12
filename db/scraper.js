@@ -39,7 +39,7 @@ module.exports = {
             /* HEADER */
             if(regexHeader.test(line)){
               dateFull = line.match(regexDateFull)[0]
-              year = parseInt(dateFull.slice(-4))
+              year = dateFull.slice(-4)
               name = line.match(regexName)[0].trim()
 
 
@@ -80,7 +80,9 @@ module.exports = {
               newObj = {
                 category: 'Hurricane',
                 name: name,
-                date: `${year}-${month}-${day} 00:00:00.00`,
+                year: year,
+                month: month,
+                day: day,
                 lat: lat,
                 lng: lng
               }
@@ -127,7 +129,13 @@ module.exports = {
 
         newObj = {
           category: 'Earthquake',
-          date: splitLine[0],
+          year: splitLine[0].slice(0,4),
+          month: splitLine[0].slice(5,7),
+          day: splitLine[0].slice(8,10),
+          hour: splitLine[0].slice(11,13),
+          min: splitLine[0].slice(14,16),
+          sec: splitLine[0].slice(17,19),
+          msec: splitLine[0].slice(20,22),
           lat: splitLine[1],
           lng: splitLine[2],
           error: {
