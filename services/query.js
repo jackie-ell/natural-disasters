@@ -4,37 +4,37 @@ class QueryService {
   }
 
   singleDates(year, month, day){
-    if (year) { this.query['properties.year'] = parseInt(year) }
-    if (month) { this.query['properties.month'] = parseInt(month) }
-    if (day) { this.query['properties.day'] = parseInt(day) }
+    if (year) { this.query['properties.year'] = year }
+    if (month) { this.query['properties.month'] = month }
+    if (day) { this.query['properties.day'] = day }
   }
 
   betweenDates(yearStart, yearEnd, monthStart, monthEnd, dayStart, dayEnd){
     if (yearStart) {
       this.query['properties.year'] = {}
-      this.query['properties.year']['$gte'] = parseInt(yearStart)
+      this.query['properties.year']['$gte'] = yearStart
     }
     if (yearEnd) {
       if(this.query['properties.year'] === undefined) {this.query['properties.year'] = {} }
-      this.query['properties.year']['$lte'] = parseInt(yearEnd)
+      this.query['properties.year']['$lte'] = yearEnd
     }
 
     if (monthStart) {
       this.query['properties.month'] = {}
-      this.query['properties.month']['$gte'] = parseInt(monthStart)
+      this.query['properties.month']['$gte'] = monthStart
     }
     if (monthEnd) {
       if(this.query['properties.month'] === undefined) {this.query['properties.month'] = {} }
-      this.query['properties.month']['lte'] = parseInt(monthEnd)
+      this.query['properties.month']['lte'] = monthEnd
     }
 
     if (dayStart) {
       this.query['properties.day'] = {}
-      this.query['properties.day']['$gte'] = parseInt(dayStart)
+      this.query['properties.day']['$gte'] = dayStart
     }
     if (dayEnd) {
       if(this.query['properties.day'] === undefined) {this.query['properties.day'] = {} }
-      this.query['properties.day']['$lte'] = parseInt(dayEnd)
+      this.query['properties.day']['$lte'] = dayEnd
     }
   }
 
