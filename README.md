@@ -1,5 +1,7 @@
 # Natural Disasters API
 
+![JSON](https://raw.githubusercontent.com/jackie-ell/natural-disasters/master/public/images/Screen%20Shot%202017-09-13%20at%201.11.04%20PM.png)
+
 ## About
 This API is designed to gather thousands of natural disasters in one place.
 
