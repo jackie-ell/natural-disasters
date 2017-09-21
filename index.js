@@ -20,6 +20,13 @@ app.use('/', home)
 app.use('/api/hurricanes', hurricanes)
 app.use('/api/earthquakes', earthquakes)
 
+// 404 - NOT FOUND
+app.use((req, res) => {
+  res.status(404)
+
+  res.render('error')
+})
+
 
 const PORT = 3001
 
