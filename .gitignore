@@ -1,3 +1,4 @@
 node_modules
 .eslintrc.*
 scraper_test.js
+data/isc*
