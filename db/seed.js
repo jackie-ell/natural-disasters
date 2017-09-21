@@ -1,9 +1,9 @@
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+const MongoClient = require('mongodb').MongoClient
+const assert = require('assert')
 const scraper = require('./scraper.js')
 const fs = require('fs')
 
-const url = 'mongodb://localhost:27017/disaster';
+const url = require('../config/params').db
 
 const hurricaneUrl = [
   'http://weather.unisys.com/hurricane/atlantic/tracks.atl',
