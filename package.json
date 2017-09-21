@@ -1,7 +1,7 @@
 {
-  "name": "natural_disasters",
-  "version": "0.1.0",
-  "description": "map of history's natural disasters",
+  "name": "natural_disasters_api",
+  "version": "1.0.0",
+  "description": "api to retrieve historical natural disasters",
   "main": "index.js",
   "author": "Jackie Ellenberger",
   "license": "MIT",
@@ -17,9 +17,7 @@
     "express": "^4.15.3",
     "geojson": "^0.4.1",
     "mongodb": "^2.2.30",
-    "morgan": "^1.8.2",
-    "node-fetch": "^1.7.1",
-    "socket.io": "^2.0.3"
+    "morgan": "^1.8.2"
   },
   "devDependencies": {
     "eslint": "^4.4.1",
