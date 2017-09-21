@@ -2,7 +2,7 @@ const {MongoClient} = require('mongodb')
 const assert = require('assert')
 const QueryService = require('./query')
 
-const url = 'mongodb://localhost:27017/disaster'
+const url = require('../config/params').db
 
 class RequestService {
   set(req, res, collection){
