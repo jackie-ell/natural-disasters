@@ -28,7 +28,7 @@ app.use((req, res) => {
 })
 
 
-const PORT = 3001
+const PORT = require('./config/params').port
 
 app.listen(PORT, () => {
   // eslint-disable-next-line
