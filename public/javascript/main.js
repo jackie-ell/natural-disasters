@@ -6,13 +6,11 @@ const getData = (query) => {
 
 }
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const testBtn = q('#api-test-btn')
   const testOutput = q('#api-test-output')
 
-  const defaultQuery = 'http://localhost:3001/api/hurricanes?year=2011&month=6&day=22'
+  const defaultQuery = q('#api-test').value
 
   const setOutput = (query) => {
     getData(query)
