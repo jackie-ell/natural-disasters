@@ -5,7 +5,7 @@ const QueryService = require('./query')
 const url = require('../config/params').db
 
 class RequestService {
-  set(req, res, collection){
+  constructor(req, res, collection){
     this.req = req
     this.res = res
     this.collection = collection
@@ -38,7 +38,7 @@ class RequestService {
     )
 
     if(query === false){
-      this.res.status(400).send('Bad Request - Did you mix and match selectors?')
+      return this.res.status(400).send('Bad Request - Did you mix and match selectors?')
     }else{
       MongoClient.connect(url, (err, db) => {
         assert.equal(err, null)
@@ -48,11 +48,11 @@ class RequestService {
             assert.equal(err, null)
 
             db.close()
-            this.res.json(result)
+            return this.res.json(result)
           })
       })
     }
   }
 }
 
-module.exports = new RequestService()
+module.exports = RequestService
